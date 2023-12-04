@@ -1,0 +1,53 @@
+<div class="w-full bg-main-color">
+  <div class="set-container p-3 flex flex-column gap-3">
+    <!-- Top -->
+    <div class="flex justify-content-between">
+      <!-- Left -->
+      <div class="flex gap-3">
+        <span>Kênh người bán</span>
+        <span>Tải ứng dụng</span>
+        <span>Kết nối</span>
+      </div>
+
+      <!-- Right -->
+      <div class="flex gap-3">
+        <span>Thông báo</span>
+        <span>Hỗ trợ</span>
+        <span>|</span>
+        <span>Đăng nhập</span>
+        <span>Đăng ký</span>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="flex justify-content-between align-items-center">
+      <!-- Logo -->
+      <div (click)="onClickLogo()" class="text-3xl font-bold on-click">
+        T S H O P
+      </div>
+
+      <!-- Search -->
+      <div
+        class="bg-white border-round-3xl w-23rem flex gap-2"
+        style="padding: 0.7rem 1rem"
+      >
+        <input
+          type="text"
+          placeholder="Bạn cần tìm?"
+          class="outline-none border-none flex-1"
+          style="color: black"
+        />
+        <i class="pi pi-search on-click" style="color: black"></i>
+      </div>
+
+      <!-- Cart icon -->
+      <i style="font-size: 1.6rem" class="pi pi-shopping-cart on-click"> </i>
+    </div>
+  </div>
+</div>
+
+<style>
+  * {
+    color: white;
+  }
+</style>

@@ -1,0 +1,13 @@
+<div>
+  <div class="flex flex-column gap-3">
+    <app-banner />
+
+    <div class="card flex gap-8">
+      <app-menu-item *ngFor="let item of listMenu" [item]="item" />
+    </div>
+
+    <div class="card flex gap-3 flex-wrap">
+      <app-product-item *ngFor="let item of listProduct" [item]="item" />
+    </div>
+  </div>
+</div>
