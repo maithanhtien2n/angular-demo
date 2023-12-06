@@ -27,23 +27,33 @@
   <div class="flex flex-wrap">
     <!-- Left -->
     <div style="width: 40%" class="border-right-1 text-200 text-center">
-      <img
-        src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png"
-        alt="Lỗi ảnh"
-      />
+      <img [src]="onReturnProductDetail()?.img" alt="Lỗi ảnh" />
     </div>
 
     <!-- Right -->
     <div style="width: 60%" class="p-3 pr-0 flex flex-column gap-5">
       <!-- Tên sản phẩm -->
       <span class="text-2xl line-height-2 text-800">
-        Điện thoại iphone 14 pro max nguyên zin 100% ll*a Full Hộp Phụ Kiện HJK8
+        {{ onReturnProductDetail()?.name }}
       </span>
 
       <!-- Giá sản phẩm -->
       <div class="flex gap-3">
-        <span class="line-through text-700">2.689.000</span>
-        <span class="p-error text-3xl">2.689.000</span>
+        <span
+          *ngIf="onReturnProductDetail()?.priceSale"
+          class="line-through text-700"
+        >
+          {{ index.formatCurrencyVND(onReturnProductDetail()?.price) }}
+        </span>
+        <span class="p-error text-3xl">
+          {{
+            index.formatCurrencyVND(
+              onReturnProductDetail()?.priceSale
+                ? onReturnProductDetail()?.priceSale
+                : onReturnProductDetail()?.price
+            )
+          }}
+        </span>
       </div>
 
       <!-- Màu sắc -->
@@ -51,7 +61,10 @@
         <span style="font-size: 1.1rem" class="text-700">Màu sắc</span>
         <div class="flex gap-2">
           <span
-            *ngFor="let item of colorItem; let index = index"
+            *ngFor="
+              let item of onReturnProductDetail()?.type;
+              let index = index
+            "
             style="border: 1px solid #ddd"
             class="color-item px-3 py-2 border-1 text-700 on-click"
             [class]="{ 'color-item-select': item.isSelect }"
@@ -76,6 +89,8 @@
             [(ngModel)]="productInfo.quantity"
             type="text"
             class="border-1 w-3rem px-2 text-center"
+            (keypress)="onKeyPress($event)"
+            (change)="onChangeQuantity($event)"
           />
           <i
             class="pi pi-plus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"

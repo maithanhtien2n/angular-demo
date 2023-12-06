@@ -4,6 +4,7 @@ import { CART_DATA } from './data';
 import { ProductItem } from '../product-list/product-list.model';
 import { PRODUCT_DATA } from '../product-list/data';
 import { Index } from '../../../utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +17,7 @@ export class CartComponent {
   selectAll: boolean = false;
   selectItem: { item: CartItem; isSelect: boolean | false }[] = [];
 
-  constructor(public index: Index) {
+  constructor(public index: Index, private router: Router) {
     this.listCart.forEach((item) => {
       this.selectItem.push({ item: item, isSelect: false });
     });
@@ -48,7 +49,83 @@ export class CartComponent {
     }
   }
 
-  onClickSelectAll() {}
+  onClickSelectAll() {
+    for (let i = 0; i < this.selectItem.length; i++) {
+      if (!this.selectAll) {
+        this.selectItem[i].isSelect = true;
+      } else {
+        this.selectItem[i].isSelect = false;
+      }
+    }
+  }
 
-  onClickSelectItem() {}
+  onClickSelectItem(index: number) {
+    this.selectItem[index].isSelect = !this.selectItem[index].isSelect;
+
+    const selectItemLength = this.selectItem.filter(
+      ({ isSelect }) => isSelect
+    ).length;
+
+    if (this.selectItem.length === selectItemLength) {
+      this.selectAll = true;
+    } else {
+      this.selectAll = false;
+    }
+  }
+
+  onDisabledButtonPay() {
+    return !this.selectItem.filter(({ isSelect }) => isSelect).length;
+  }
+
+  onTotalAmount() {
+    const totalAmount = this.selectItem.filter(({ isSelect }) => isSelect);
+    const sum = totalAmount.reduce((accumulator, { item }) => {
+      const product = this.onReturnProductDetail(item.productId);
+      return (
+        accumulator +
+        this.onCalculateTotalQuantity(
+          product?.price,
+          product?.priceSale,
+          item.quantity
+        )
+      );
+    }, 0);
+
+    return {
+      sum: this.index.formatCurrencyVND(sum),
+      sumNumber: +sum,
+      amount: totalAmount.length,
+    };
+  }
+
+  onClickDeleteCartItem(index: number) {
+    this.listCart.splice(index, 1);
+  }
+
+  onClickDeleteCartAll() {
+    for (let i = 0; i < this.selectItem.length; i++) {
+      if (this.selectItem[i].isSelect) {
+        this.listCart.splice(i);
+      }
+    }
+  }
+
+  onReturnProduct() {
+    const productSelect = this.selectItem.filter(({ isSelect }) => isSelect);
+
+    return productSelect.map(({ item }) => ({
+      ...item,
+      ...this.listProduct.find(({ id }) => id === item.productId),
+      totalAmount: this.onTotalAmount(),
+    }));
+  }
+
+  onClickPayCart() {
+    localStorage.setItem(
+      'listOrderProduct',
+      JSON.stringify(this.onReturnProduct())
+    );
+
+    this.router.navigate(['order']);
+  }
 }

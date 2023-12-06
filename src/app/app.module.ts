@@ -13,9 +13,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AppStoreModule } from './pages/app-store/app-store.module';
 import { RegisterComponent } from './pages/register/register.component';
+import { OrderComponent } from './views/purchase/order/order.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, OrderComponent],
   imports: [BrowserModule, AppRoutingModule, AppStoreModule, ButtonModule],
   exports: [ButtonModule],
   providers: [],

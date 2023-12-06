@@ -1,7 +1,7 @@
-<div class="flex flex-column gap-3">
-  <div class="card flex">
+<div class="flex flex-column gap-3 h-full">
+  <div *ngIf="listCart.length" class="card flex align-items-center">
     <div style="width: 35%">
-      <div class="flex gap-2">
+      <div class="flex gap-2 align-items-center">
         <input
           [(ngModel)]="selectAll"
           type="checkbox"
@@ -15,107 +15,144 @@
     <span style="width: 20%" class="text-center">Đơn giá</span>
     <span style="width: 15%" class="text-center">Số lượng</span>
     <span style="width: 15%" class="text-center">Số tiền</span>
-    <span style="width: 15%" class="text-right">Thao tác</span>
+    <span style="width: 15%" class="text-right">
+      <i
+        class="pi pi-trash on-click p-error"
+        (click)="onClickDeleteCartAll()"
+      ></i
+    ></span>
   </div>
 
-  <div
-    *ngFor="let item of listCart; let i = index"
-    class="card flex w-full align-items-center"
-  >
-    <div style="width: 35%">
-      <div class="flex align-items-center gap-3">
-        <input
-          [(ngModel)]="selectItem[i].isSelect"
-          type="checkbox"
-          [value]="true"
-          style="width: 1.2rem; height: 1.2rem"
-          (click)="onClickSelectItem()"
-        />
-        <div class="flex gap-2">
-          <img
-            class="w-5rem h-5rem object-fit-cover"
-            [src]="onReturnProductDetail(item.productId)?.img"
-            alt="Lỗi ảnh"
+  <div *ngIf="listCart.length" class="flex flex-column gap-3">
+    <div
+      *ngFor="let item of listCart; let i = index"
+      class="card flex w-full align-items-center"
+    >
+      <div style="width: 35%">
+        <div class="flex align-items-center gap-3">
+          <input
+            [(ngModel)]="selectItem[i].isSelect"
+            type="checkbox"
+            [value]="true"
+            style="width: 1.2rem; height: 1.2rem"
+            (click)="onClickSelectItem(i)"
           />
-          <div class="flex flex-column gap-2">
-            <span style="max-width: 85%" class="text-700">
-              {{ onReturnProductDetail(item.productId)?.name }}
-            </span>
-            <span class="text-700">{{ item.color }}</span>
+          <div class="flex gap-2">
+            <img
+              class="w-5rem h-5rem object-fit-cover"
+              [src]="onReturnProductDetail(item.productId)?.img"
+              alt="Lỗi ảnh"
+            />
+            <div class="flex flex-column gap-2">
+              <span style="max-width: 85%" class="text-700">
+                {{ onReturnProductDetail(item.productId)?.name }}
+              </span>
+              <span class="text-700">{{ item.color }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div style="width: 20%" class="flex justify-content-center">
-      <div class="flex gap-3">
-        <span
-          *ngIf="onReturnProductDetail(item.productId)?.priceSale"
-          class="line-through text-600 text-custom-mini"
-        >
-          {{
-            index.formatCurrencyVND(
-              onReturnProductDetail(item.productId)?.price
-            )
-          }}
-        </span>
+      <div style="width: 20%" class="flex justify-content-center">
+        <div class="flex gap-3">
+          <span
+            *ngIf="onReturnProductDetail(item.productId)?.priceSale"
+            class="line-through text-600 text-custom-mini"
+          >
+            {{
+              index.formatCurrencyVND(
+                onReturnProductDetail(item.productId)?.price
+              )
+            }}
+          </span>
+          <span class="p-error">
+            {{
+              onReturnProductDetail(item.productId)?.priceSale
+                ? index.formatCurrencyVND(
+                    onReturnProductDetail(item.productId)?.priceSale
+                  )
+                : index.formatCurrencyVND(
+                    onReturnProductDetail(item.productId)?.price
+                  )
+            }}
+          </span>
+        </div>
+      </div>
+      <div style="width: 15%" class="flex justify-content-center">
+        <div class="flex gap-1">
+          <i
+            [class]="{ 'p-disabled': item.quantity === 1 }"
+            class="pi pi pi-minus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
+            (click)="onClickChangeQuantity('minus', i)"
+          >
+          </i>
+          <input
+            [(ngModel)]="item.quantity"
+            type="text"
+            class="border-1 w-3rem px-2 text-center"
+          />
+          <i
+            class="pi pi-plus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
+            (click)="onClickChangeQuantity('plus', i)"
+          >
+          </i>
+        </div>
+      </div>
+      <div style="width: 15%" class="text-center">
         <span class="p-error">
           {{
-            onReturnProductDetail(item.productId)?.priceSale
-              ? index.formatCurrencyVND(
-                  onReturnProductDetail(item.productId)?.priceSale
-                )
-              : index.formatCurrencyVND(
-                  onReturnProductDetail(item.productId)?.price
-                )
+            index.formatCurrencyVND(
+              onCalculateTotalQuantity(
+                onReturnProductDetail(item.productId)?.price,
+                onReturnProductDetail(item.productId)?.priceSale,
+                item.quantity
+              )
+            )
           }}
         </span>
       </div>
-    </div>
-    <div style="width: 15%" class="flex justify-content-center">
-      <div class="flex gap-1">
+      <div style="width: 15%" class="text-right">
         <i
-          [class]="{ 'p-disabled': item.quantity === 1 }"
-          class="pi pi pi-minus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
-          (click)="onClickChangeQuantity('minus', i)"
-        >
-        </i>
-        <input
-          [(ngModel)]="item.quantity"
-          type="text"
-          class="border-1 w-3rem px-2 text-center"
-        />
-        <i
-          class="pi pi-plus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
-          (click)="onClickChangeQuantity('plus', i)"
-        >
-        </i>
+          class="pi pi-trash on-click p-error"
+          (click)="onClickDeleteCartItem(i)"
+        ></i>
       </div>
-    </div>
-    <div style="width: 15%" class="text-center">
-      <span class="p-error">
-        {{
-          index.formatCurrencyVND(
-            onCalculateTotalQuantity(
-              onReturnProductDetail(item.productId)?.price,
-              onReturnProductDetail(item.productId)?.priceSale,
-              item.quantity
-            )
-          )
-        }}
-      </span>
-    </div>
-    <div style="width: 15%" class="text-right">
-      <i class="pi pi-trash on-click p-error"></i>
     </div>
   </div>
 
-  <div class="card flex justify-content-between align-items-center">
-    <span>Tổng tiền</span>
-    <div class="flex gap-3 align-items-center">
-      <span class="p-error">355255</span>
+  <div
+    *ngIf="!listCart.length"
+    class="flex justify-content-center"
+    style="padding-top: 10rem"
+  >
+    <div class="flex flex-column gap-3">
+      <i style="font-size: 5rem" class="pi pi-shopping-cart text-500"></i>
+      <span>Giỏ hàng trống</span>
+    </div>
+  </div>
+
+  <div
+    *ngIf="listCart.length"
+    class="card flex justify-content-between align-items-center"
+  >
+    <span style="width: 35%">
+      Tổng thanh toán ({{ onTotalAmount().amount }} sản phẩm)
+    </span>
+
+    <span style="width: 20%" class="text-center"></span>
+    <span style="width: 15%" class="text-center"></span>
+
+    <div style="width: 15%" class="text-center">
+      <span class="p-error">
+        {{ onTotalAmount().sum }}
+      </span>
+    </div>
+
+    <div style="width: 15%" class="text-right">
       <button
         style="padding: 0.8rem 1.5rem"
         class="border-none bg-main-color on-click border-round-3xl"
+        [class]="{ 'p-disabled': onDisabledButtonPay() }"
+        (click)="onClickPayCart()"
       >
         Thanh toán
       </button>

@@ -41,7 +41,11 @@
       <!-- Cart icon -->
       <div (click)="onClickIconCart()" class="relative">
         <i style="font-size: 1.6rem" class="pi pi-shopping-cart on-click"> </i>
-        <div style="top: -0.8rem; right: -1rem" class="absolute">
+        <div
+          *ngIf="listCart.length"
+          style="top: -0.8rem; right: -1rem"
+          class="absolute"
+        >
           <p-badge [value]="listCart.length.toString()"></p-badge>
         </div>
       </div>

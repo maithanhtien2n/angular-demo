@@ -5,6 +5,7 @@ import { AppStoreComponent } from './app-store.component';
 import { ProductListComponent } from '../../views/purchase/product-list/product-list.component';
 import { ProductDetailComponent } from '../../views/purchase/product-detail/product-detail.component';
 import { CartComponent } from '../../views/purchase/cart/cart.component';
+import { OrderComponent } from '../../views/purchase/order/order.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+      },
+      {
+        path: 'order',
+        component: OrderComponent,
       },
     ],
   },

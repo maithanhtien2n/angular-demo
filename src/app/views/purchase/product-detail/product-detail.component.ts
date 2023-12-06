@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { ColorItem } from './product-detail.model';
 import { PRODUCT_DETAIL_DATA } from './data';
 import { ActivatedRoute } from '@angular/router';
 import { CART_DATA } from '../cart/data';
 import { CartItem } from '../cart/cart.model';
+import { ProductItem } from '../product-list/product-list.model';
+import { PRODUCT_DATA } from '../product-list/data';
+import { Index } from '../../../utils';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,8 +13,8 @@ import { CartItem } from '../cart/cart.model';
   styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent {
+  productList: ProductItem[] = PRODUCT_DATA.listProduct;
   listCart: CartItem[] = CART_DATA.listCart;
-  colorItem: ColorItem[] = PRODUCT_DETAIL_DATA.colorItem;
   productInfo: CartItem = {
     productId: 0,
     color: '',
@@ -20,16 +22,58 @@ export class ProductDetailComponent {
   };
   message: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public index: Index) {
+    const colorFilter = this.onReturnProductDetail()?.type.find(
+      ({ isSelect }) => isSelect
+    );
+    if (colorFilter && colorFilter.name) {
+      this.productInfo.color = colorFilter.name;
+    }
+  }
+
+  onReturnProductDetail() {
+    return this.productList.find(({ id }) => id === this.productInfo.productId);
+  }
 
   onClickItemColor(index: number) {
-    for (let i = 0; i < this.colorItem.length; i++) {
-      if (index === i) {
-        this.colorItem[i].isSelect = true;
-        this.productInfo.color = this.colorItem[i].name;
-      } else {
-        this.colorItem[i].isSelect = false;
+    const productDetail = this.onReturnProductDetail();
+
+    if (productDetail && productDetail.type) {
+      for (let i = 0; i < productDetail.type.length; i++) {
+        if (i === index) {
+          productDetail.type[i].isSelect = true;
+          this.productInfo.color = productDetail.type[i].name;
+        } else {
+          productDetail.type[i].isSelect = false;
+        }
       }
+    }
+  }
+
+  onKeyPress(event: KeyboardEvent): void {
+    // Lấy ký tự vừa được nhập
+    const char = event.key;
+
+    // Lấy giá trị của trường input
+    const inputValue = (event.target as HTMLInputElement).value;
+
+    // Kiểm tra xem ký tự có phải là số hay không
+    if (isNaN(Number(char))) {
+      // Nếu không phải số, ngăn chặn sự kiện
+      event.preventDefault();
+    }
+
+    if (inputValue.length + 1 === 1 && +char === 0) {
+      event.preventDefault();
+    }
+  }
+
+  onChangeQuantity(event: Event) {
+    // Lấy giá trị của trường input
+    const inputValue = (event.target as HTMLInputElement).value;
+
+    if (!inputValue.length) {
+      this.productInfo.quantity = 1;
     }
   }
 
@@ -43,6 +87,11 @@ export class ProductDetailComponent {
   }
 
   onClickAddToCart() {
+    if (!this.productInfo.color) {
+      alert('Vui lòng chọn màu sắc sản phẩm');
+      return;
+    }
+
     let isDuplicate = this.listCart.find(
       ({ productId }) => productId === this.productInfo.productId
     );
@@ -58,7 +107,7 @@ export class ProductDetailComponent {
     } sản phẩm vào giỏ hàng`;
     setTimeout(() => {
       this.message = '';
-    }, 2000);
+    }, 1000);
   }
 
   ngOnInit() {
