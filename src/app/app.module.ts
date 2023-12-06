@@ -17,6 +17,7 @@ import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [BrowserModule, AppRoutingModule, AppStoreModule, ButtonModule],
+  exports: [ButtonModule],
   providers: [],
   bootstrap: [AppComponent],
 })

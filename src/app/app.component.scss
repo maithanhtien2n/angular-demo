@@ -185,6 +185,12 @@ body {
   /* white-space: nowrap; */
 }
 
+// Đè prime
+.p-badge {
+  background: white;
+  color: #369c48;
+}
+
 @for $i from 1 through 100 {
   .w-#{$i}rem {
     width: #{$i}rem;

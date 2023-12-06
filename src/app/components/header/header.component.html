@@ -11,11 +11,9 @@
 
       <!-- Right -->
       <div class="flex gap-3">
-        <span>Thông báo</span>
-        <span>Hỗ trợ</span>
-        <span>|</span>
-        <span>Đăng nhập</span>
-        <span>Đăng ký</span>
+        <span *ngFor="let item of items" [class]="{ 'on-click': item !== '|' }">
+          {{ item }}
+        </span>
       </div>
     </div>
 
@@ -41,7 +39,12 @@
       </div>
 
       <!-- Cart icon -->
-      <i style="font-size: 1.6rem" class="pi pi-shopping-cart on-click"> </i>
+      <div (click)="onClickIconCart()" class="relative">
+        <i style="font-size: 1.6rem" class="pi pi-shopping-cart on-click"> </i>
+        <div style="top: -0.8rem; right: -1rem" class="absolute">
+          <p-badge [value]="listCart.length.toString()"></p-badge>
+        </div>
+      </div>
     </div>
   </div>
 </div>

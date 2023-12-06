@@ -3,11 +3,3 @@ export interface MenuItem {
   img: string;
   label: string;
 }
-
-export interface ProductItem {
-  id: number;
-  img: string;
-  name: string;
-  price: number;
-  description: string;
-}

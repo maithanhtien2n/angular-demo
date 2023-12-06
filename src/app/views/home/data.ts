@@ -28,35 +28,4 @@ export const HOME_DATA = {
       label: 'Mã giảm giá',
     },
   ],
-
-  listProduct: [
-    {
-      id: 1,
-      img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png',
-      name: 'Chiếc điện thoại thần kỳ mới nhất 2023',
-      price: 2000000,
-      description: 'Điện thoại',
-    },
-    {
-      id: 2,
-      img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png',
-      name: 'Chiếc điện thoại thần kỳ mới nhất 2023',
-      price: 2000000,
-      description: 'Điện thoại',
-    },
-    {
-      id: 3,
-      img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png',
-      name: 'Chiếc điện thoại thần kỳ mới nhất 2023',
-      price: 2000000,
-      description: 'Điện thoại',
-    },
-    {
-      id: 4,
-      img: 'https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png',
-      name: 'Chiếc điện thoại thần kỳ mới nhất 2023',
-      price: 2000000,
-      description: 'Điện thoại',
-    },
-  ],
 };

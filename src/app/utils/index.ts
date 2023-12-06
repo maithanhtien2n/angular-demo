@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Index {
-  formatCurrencyVND(value: number): string {
-    if (isNaN(value)) {
+  formatCurrencyVND(value: number | undefined): string {
+    const numberToUse = value !== undefined ? value : 0;
+    if (isNaN(numberToUse)) {
       return 'Invalid Number';
     }
 
-    return value.toLocaleString('vi-VN', {
+    return numberToUse.toLocaleString('vi-VN', {
       style: 'currency',
       currency: 'VND',
     });

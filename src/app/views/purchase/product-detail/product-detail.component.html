@@ -1,1 +1,120 @@
-<p>product-detail works!</p>
+<style>
+  .color-item:hover {
+    color: #369c48 !important;
+    border: 1px solid #369c48 !important;
+    transition: all 0.1s ease;
+  }
+
+  .color-item-select {
+    color: #369c48 !important;
+    border: 1px solid #369c48 !important;
+  }
+</style>
+
+<!-- Toast -->
+<div
+  *ngIf="message"
+  class="fixed top-0 right-0 left-0 bottom-0 flex justify-content-center align-items-center"
+>
+  <span
+    style="background-color: rgba(0, 0, 0, 0.671); color: white"
+    class="p-3 border-round-lg"
+  >
+    {{ message }}
+  </span>
+</div>
+<div class="card flex flex-column gap-3">
+  <div class="flex flex-wrap">
+    <!-- Left -->
+    <div style="width: 40%" class="border-right-1 text-200 text-center">
+      <img
+        src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png"
+        alt="Lỗi ảnh"
+      />
+    </div>
+
+    <!-- Right -->
+    <div style="width: 60%" class="p-3 pr-0 flex flex-column gap-5">
+      <!-- Tên sản phẩm -->
+      <span class="text-2xl line-height-2 text-800">
+        Điện thoại iphone 14 pro max nguyên zin 100% ll*a Full Hộp Phụ Kiện HJK8
+      </span>
+
+      <!-- Giá sản phẩm -->
+      <div class="flex gap-3">
+        <span class="line-through text-700">2.689.000</span>
+        <span class="p-error text-3xl">2.689.000</span>
+      </div>
+
+      <!-- Màu sắc -->
+      <div class="flex gap-5 align-items-center">
+        <span style="font-size: 1.1rem" class="text-700">Màu sắc</span>
+        <div class="flex gap-2">
+          <span
+            *ngFor="let item of colorItem; let index = index"
+            style="border: 1px solid #ddd"
+            class="color-item px-3 py-2 border-1 text-700 on-click"
+            [class]="{ 'color-item-select': item.isSelect }"
+            (click)="onClickItemColor(index)"
+          >
+            {{ item.name }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Số lượng -->
+      <div class="flex gap-5 align-items-center">
+        <span style="font-size: 1.1rem" class="text-700">Số lượng</span>
+        <div class="flex gap-1">
+          <i
+            [class]="{ 'p-disabled': productInfo.quantity === 1 }"
+            class="pi pi pi-minus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
+            (click)="onClickChangeQuantity('minus')"
+          >
+          </i>
+          <input
+            [(ngModel)]="productInfo.quantity"
+            type="text"
+            class="border-1 w-3rem px-2 text-center"
+          />
+          <i
+            class="pi pi-plus border-1 w-2rem h-2rem flex justify-content-center align-items-center text-500 on-click"
+            (click)="onClickChangeQuantity('plus')"
+          >
+          </i>
+        </div>
+      </div>
+
+      <!-- Chức năng -->
+      <div class="flex gap-3">
+        <button
+          style="border: 1px solid #369c48"
+          class="bg-transparent p-3 on-click flex gap-2"
+          (click)="onClickAddToCart()"
+        >
+          <i class="pi pi-cart-plus text-600"></i>
+          <span>Thêm vào giỏ hàng</span>
+        </button>
+
+        <button
+          style="background-color: #369c48"
+          class="p-3 outline-none border-none on-click"
+        >
+          Mua ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #ddd" class="py-3 flex flex-column gap-3">
+    <span>Mô tả sản phẩm</span>
+    <div class="line-height-3 text-700">
+      1/THÔNG TIN SẢN PHẨM + Ram: 6gb + Dung lượng lưu trữ: 256gb + Máy đẹp
+      keng, fullbox, hoạt động ổn định Một Số Thông Tin Về Shop: Shop cam kết
+      chỉ bán hàng chính hãng. Vui lòng khách đến vừa lòng khách đi. Tất cả sản
+      phẩm được kiểm tra kỹ trước khi cung cấp đến khách hàng Phiếu bảo hành 12
+      - 24 tháng đi kèm sanc phẩm 1 đổi 1 với bất kỳ lỗi gì. Dùng thử miễn phí 7
+      - 15 ngày
+    </div>
+  </div>
+</div>

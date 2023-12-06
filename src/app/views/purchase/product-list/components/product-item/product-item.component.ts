@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ProductItem } from '../../home.model';
-import { Index } from '../../../../utils';
+import { ProductItem } from '../../product-list.model';
+import { Index } from '../../../../../utils';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,6 +14,6 @@ export class ProductItemComponent {
   constructor(public index: Index, private router: Router) {}
 
   onClickSeeDetails() {
-    this.router.navigate(['product/000001111']);
+    this.router.navigate([`product/${this.item.id}`]);
   }
 }
