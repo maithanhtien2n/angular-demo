@@ -15,4 +15,11 @@ export class Index {
       currency: 'VND',
     });
   }
+
+  removeAccents(str: string) {
+    return str
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
 }

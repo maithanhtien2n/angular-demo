@@ -1,1 +1,58 @@
-<p>login works!</p>
+<div class="w-full h-screen flex justify-content-center align-items-center">
+  <div class="w-23rem flex flex-column gap-3">
+    <span class="text-2xl text-800">Đăng nhập</span>
+
+    <div class="card flex flex-column gap-3">
+      <label class="flex flex-column gap-2">
+        <span>Tài khoản:</span>
+        <div class="flex flex-column gap-1">
+          <input
+            [(ngModel)]="loginInfo.username"
+            type="text"
+            class="h-2rem border-1 px-2"
+            (input)="onChangeUserName()"
+          />
+          <small *ngIf="error.username" class="text-custom-mini p-error">
+            {{ error.username }}
+          </small>
+        </div>
+      </label>
+
+      <label class="flex flex-column gap-2">
+        <span>Mật khẩu:</span>
+        <div class="flex flex-column gap-1">
+          <input
+            [(ngModel)]="loginInfo.password"
+            type="password"
+            class="h-2rem border-1 px-2"
+            (input)="onChangePassword()"
+          />
+          <small *ngIf="error.password" class="text-custom-mini p-error">
+            {{ error.password }}
+          </small>
+        </div>
+      </label>
+
+      <button
+        class="w-full h-2rem border-none bg-main-color on-click"
+        (click)="onClickLogin()"
+      >
+        Đăng nhập
+      </button>
+
+      <div class="flex gap-2 align-items-center">
+        <span style="border-top: 1px solid #ddd" class="flex-1"></span>
+        <span>hoặc</span>
+        <span style="border-top: 1px solid #ddd" class="flex-1"></span>
+      </div>
+
+      <button
+        style="border: 1px solid #369c48"
+        class="w-full h-2rem bg-transparent on-click"
+        (click)="onClickButtonRegister()"
+      >
+        Tạo tài khoản ngay
+      </button>
+    </div>
+  </div>
+</div>

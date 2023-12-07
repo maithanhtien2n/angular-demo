@@ -1,2 +1,12 @@
-<div *ngFor="let item of items">{{ item }}</div>
-<span>gdgsdg</span>
+<div class="flex flex-column gap-3">
+  <div class="card flex flex-column gap-3">
+    <span style="font-size: 1.2rem">Sản phẩm</span>
+    <div class="flex flex-wrap gap-3 flex-1">
+      <app-product-item
+        *ngFor="let item of onReturnProducts()"
+        [item]="item"
+        class="flex-1"
+      />
+    </div>
+  </div>
+</div>

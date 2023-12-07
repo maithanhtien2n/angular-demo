@@ -13,11 +13,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AppStoreModule } from './pages/app-store/app-store.module';
 import { RegisterComponent } from './pages/register/register.component';
-import { OrderComponent } from './views/purchase/order/order.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, OrderComponent],
-  imports: [BrowserModule, AppRoutingModule, AppStoreModule, ButtonModule],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AppStoreModule,
+    ButtonModule,
+    FormsModule,
+  ],
   exports: [ButtonModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,7 +11,11 @@
 
       <!-- Right -->
       <div class="flex gap-3">
-        <span *ngFor="let item of items" [class]="{ 'on-click': item !== '|' }">
+        <span
+          *ngFor="let item of items"
+          [class]="{ 'on-click': item !== '|' }"
+          (click)="onClickIconLogin(item)"
+        >
           {{ item }}
         </span>
       </div>
@@ -25,17 +29,33 @@
       </div>
 
       <!-- Search -->
-      <div
-        class="bg-white border-round-3xl w-23rem flex gap-2"
-        style="padding: 0.7rem 1rem"
-      >
-        <input
-          type="text"
-          placeholder="Bạn cần tìm?"
-          class="outline-none border-none flex-1"
-          style="color: black"
+      <div class="relative">
+        <div
+          class="bg-white border-round-3xl w-23rem flex gap-2"
+          style="padding: 0.7rem 1rem"
+        >
+          <input
+            [(ngModel)]="keySearch"
+            type="text"
+            placeholder="Bạn cần tìm?"
+            class="outline-none border-none flex-1"
+            style="color: black"
+            (input)="onInputSearch()"
+            (click)="onClickInputSearch()"
+            (keyup.enter)="onClickIconSearch()"
+          />
+          <i
+            class="pi pi-search on-click"
+            style="color: black"
+            (click)="onClickIconSearch()"
+          ></i>
+        </div>
+
+        <app-search
+          *ngIf="isShowSearch"
+          [value]="listProductFilter"
+          (clickItemProduct)="onClickItemProduct($event)"
         />
-        <i class="pi pi-search on-click" style="color: black"></i>
       </div>
 
       <!-- Cart icon -->

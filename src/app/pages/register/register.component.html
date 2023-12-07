@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="w-full h-screen flex justify-content-center align-items-center">
+  <div class="w-23rem flex flex-column gap-3">
+    <span class="text-2xl text-800">Đăng ký</span>
+
+    <div class="card flex flex-column gap-3">
+      <label class="flex flex-column gap-2">
+        <span>Tài khoản:</span>
+        <input type="text" class="h-2rem border-1 px-2" />
+      </label>
+
+      <label class="flex flex-column gap-2">
+        <span>Mật khẩu:</span>
+        <input type="password" class="h-2rem border-1 px-2" />
+      </label>
+
+      <label class="flex flex-column gap-2">
+        <span>Mật khẩu xác nhận:</span>
+        <input type="password" class="h-2rem border-1 px-2" />
+      </label>
+
+      <button class="w-full h-2rem border-none bg-main-color on-click">
+        Đăng ký
+      </button>
+
+      <div class="flex gap-2 align-items-center">
+        <span style="border-top: 1px solid #ddd" class="flex-1"></span>
+        <span>hoặc</span>
+        <span style="border-top: 1px solid #ddd" class="flex-1"></span>
+      </div>
+
+      <button
+        style="border: 1px solid #369c48"
+        class="w-full h-2rem bg-transparent on-click"
+        (click)="onClickButtonLogin()"
+      >
+        Đăng nhập ngay
+      </button>
+    </div>
+  </div>
+</div>
