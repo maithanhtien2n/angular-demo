@@ -1,13 +1,19 @@
-<div style="max-width: 13rem; border: 1px solid #ddd" class="flex-1">
+<div style="border: 1px solid #ddd" class="h-full">
   <div class="w-full text-center">
     <img class="h-12rem object-fit-cover py-2" [src]="item.img" alt="Lỗi ảnh" />
   </div>
 
-  <div class="p-3 pt-0 flex flex-column gap-2">
-    <span (click)="onClickSeeDetails()" class="line-height-2 text-700 on-click">
-      {{ item.name }}
-    </span>
-    <span class="p-error">{{ index.formatCurrencyVND(item.price) }}</span>
+  <div class="p-3 pt-0 flex flex-column gap-3">
+    <div class="flex flex-column gap-2">
+      <span
+        (click)="onClickSeeDetails()"
+        class="line-height-2 text-700 on-click"
+      >
+        {{ item.name }}
+      </span>
+      <span class="p-error">{{ index.formatCurrencyVND(item.price) }}</span>
+    </div>
+
     <button
       (click)="onClickSeeDetails()"
       class="set-button py-2 border-round-3xl"

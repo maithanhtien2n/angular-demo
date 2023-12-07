@@ -27,7 +27,7 @@
   <div class="flex flex-wrap">
     <!-- Left -->
     <div style="width: 40%" class="border-right-1 text-200 text-center">
-      <img [src]="onReturnProductDetail()?.img" alt="Lỗi ảnh" />
+      <img [src]="onReturnProductDetail()?.img" alt="Lỗi ảnh" class="h-20rem" />
     </div>
 
     <!-- Right -->
@@ -114,6 +114,7 @@
         <button
           style="background-color: #369c48"
           class="p-3 outline-none border-none on-click"
+          (click)="onClickBuyNow()"
         >
           Mua ngay
         </button>
@@ -124,12 +125,7 @@
   <div style="border-top: 1px solid #ddd" class="py-3 flex flex-column gap-3">
     <span>Mô tả sản phẩm</span>
     <div class="line-height-3 text-700">
-      1/THÔNG TIN SẢN PHẨM + Ram: 6gb + Dung lượng lưu trữ: 256gb + Máy đẹp
-      keng, fullbox, hoạt động ổn định Một Số Thông Tin Về Shop: Shop cam kết
-      chỉ bán hàng chính hãng. Vui lòng khách đến vừa lòng khách đi. Tất cả sản
-      phẩm được kiểm tra kỹ trước khi cung cấp đến khách hàng Phiếu bảo hành 12
-      - 24 tháng đi kèm sanc phẩm 1 đổi 1 với bất kỳ lỗi gì. Dùng thử miễn phí 7
-      - 15 ngày
+      {{ onReturnProductDetail()?.description }}
     </div>
   </div>
 </div>

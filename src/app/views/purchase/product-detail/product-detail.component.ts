@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PRODUCT_DETAIL_DATA } from './data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CART_DATA } from '../cart/data';
 import { CartItem } from '../cart/cart.model';
 import { ProductItem } from '../product-list/product-list.model';
@@ -22,7 +22,11 @@ export class ProductDetailComponent {
   };
   message: string = '';
 
-  constructor(private route: ActivatedRoute, public index: Index) {
+  constructor(
+    private route: ActivatedRoute,
+    public index: Index,
+    private router: Router
+  ) {
     const colorFilter = this.onReturnProductDetail()?.type.find(
       ({ isSelect }) => isSelect
     );
@@ -108,6 +112,44 @@ export class ProductDetailComponent {
     setTimeout(() => {
       this.message = '';
     }, 1000);
+  }
+
+  onReturnProduct() {
+    const productDetail = this.onReturnProductDetail();
+
+    if (productDetail && productDetail.priceSale && productDetail.price) {
+      return {
+        ...this.productInfo,
+        ...productDetail,
+        totalAmount: {
+          sum: this.index.formatCurrencyVND(
+            productDetail.priceSale
+              ? productDetail.priceSale * +this.productInfo.quantity
+              : productDetail.price * +this.productInfo.quantity
+          ),
+          sumNumber: +productDetail.priceSale
+            ? productDetail.priceSale * +this.productInfo.quantity
+            : productDetail.price * +this.productInfo.quantity,
+          amount: 1,
+        },
+      };
+    } else {
+      return {};
+    }
+  }
+
+  onClickBuyNow() {
+    if (!this.productInfo.color) {
+      alert('Vui lòng chọn màu sắc sản phẩm');
+      return;
+    }
+
+    localStorage.setItem(
+      'listOrderProduct',
+      JSON.stringify([this.onReturnProduct()])
+    );
+
+    this.router.navigate(['order']);
   }
 
   ngOnInit() {
