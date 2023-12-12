@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AppStoreModule } from './pages/app-store/app-store.module';
 import { RegisterComponent } from './pages/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent],
@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     AppStoreModule,
     ButtonModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [ButtonModule],
   providers: [],

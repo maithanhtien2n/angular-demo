@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ValidateService } from '../../utils/validate.service';
 
 @Component({
   selector: 'app-login',
@@ -7,47 +9,30 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginInfo: any = {
-    username: '',
-    password: '',
-  };
+  loginForm: FormGroup;
 
-  error: any = {
-    username: '',
-    password: '',
-  };
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private validateService: ValidateService
+  ) {
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+  }
 
-  constructor(private router: Router) {}
+  onSubmit() {
+    this.validateService.checkValidate(this.loginForm, () => {
+      this.router.navigate(['']);
+    });
+  }
+
+  getErrorMessage(field: string): string {
+    return this.validateService.customErrorMessage(this.loginForm.get(field));
+  }
 
   onClickButtonRegister() {
     this.router.navigate(['register']);
-  }
-
-  onChangeUserName() {
-    if (!this.loginInfo.username) {
-      this.error.username = 'Vui lòng nhập tên người dùng.';
-      return true;
-    }
-    this.error.username = '';
-    return false;
-  }
-
-  onChangePassword() {
-    if (!this.loginInfo.password) {
-      this.error.password = 'Vui lòng nhập tên người dùng.';
-      return true;
-    }
-    this.error.password = '';
-    return false;
-  }
-
-  onValidate() {
-    if (this.onChangeUserName() || this.onChangePassword()) return true;
-    else return false;
-  }
-
-  onClickLogin() {
-    if (this.onValidate()) return;
-    this.router.navigate(['']);
   }
 }

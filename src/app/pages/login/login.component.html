@@ -2,18 +2,23 @@
   <div class="w-23rem flex flex-column gap-3">
     <span class="text-2xl text-800">Đăng nhập</span>
 
-    <div class="card flex flex-column gap-3">
+    <div [formGroup]="loginForm" class="card flex flex-column gap-3">
       <label class="flex flex-column gap-2">
         <span>Tài khoản:</span>
         <div class="flex flex-column gap-1">
           <input
-            [(ngModel)]="loginInfo.username"
+            formControlName="username"
             type="text"
             class="h-2rem border-1 px-2"
-            (input)="onChangeUserName()"
           />
-          <small *ngIf="error.username" class="text-custom-mini p-error">
-            {{ error.username }}
+          <small
+            *ngIf="
+              loginForm.get('username')?.invalid &&
+              loginForm.get('username')?.touched
+            "
+            class="text-custom-mini p-error"
+          >
+            {{ getErrorMessage("username") }}
           </small>
         </div>
       </label>
@@ -22,20 +27,25 @@
         <span>Mật khẩu:</span>
         <div class="flex flex-column gap-1">
           <input
-            [(ngModel)]="loginInfo.password"
+            formControlName="password"
             type="password"
             class="h-2rem border-1 px-2"
-            (input)="onChangePassword()"
           />
-          <small *ngIf="error.password" class="text-custom-mini p-error">
-            {{ error.password }}
+          <small
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="text-custom-mini p-error"
+          >
+            {{ getErrorMessage("password") }}
           </small>
         </div>
       </label>
 
       <button
         class="w-full h-2rem border-none bg-main-color on-click"
-        (click)="onClickLogin()"
+        (click)="onSubmit()"
       >
         Đăng nhập
       </button>

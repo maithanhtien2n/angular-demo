@@ -20,9 +20,9 @@
         <span>{{ item.name }}</span>
         <div class="flex gap-3">
           <span class="line-through text-custom-mini">{{ item.price }}</span>
-          <span style="color: rgb(230, 15, 15) !important">{{
-            item.price
-          }}</span>
+          <span style="color: rgb(230, 15, 15) !important">
+            {{ index.formatCurrencyVND(item.price) }}
+          </span>
         </div>
       </div>
     </div>
