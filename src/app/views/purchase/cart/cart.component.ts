@@ -21,6 +21,8 @@ export class CartComponent {
     this.listCart.forEach((item) => {
       this.selectItem.push({ item: item, isSelect: false });
     });
+
+    window.scrollTo(0, 0);
   }
 
   onClickChangeQuantity(type: string, index: number) {

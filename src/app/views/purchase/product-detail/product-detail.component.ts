@@ -33,6 +33,8 @@ export class ProductDetailComponent {
     if (colorFilter && colorFilter.name) {
       this.productInfo.color = colorFilter.name;
     }
+
+    window.scrollTo(0, 0);
   }
 
   onReturnProductDetail() {

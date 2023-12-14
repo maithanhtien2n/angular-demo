@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './app-store.component.html',
   styleUrl: './app-store.component.scss',
 })
-export class AppStoreComponent {}
+export class AppStoreComponent {
+  constructor() {
+    console.log('Nhận');
+  }
+}

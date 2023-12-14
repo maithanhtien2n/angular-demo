@@ -19,6 +19,8 @@ export class ProductListComponent {
         this.keySearch = queryParams['key'];
       }
     });
+
+    window.scrollTo(0, 0);
   }
 
   onReturnProducts() {

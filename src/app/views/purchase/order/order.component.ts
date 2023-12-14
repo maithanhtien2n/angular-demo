@@ -19,6 +19,8 @@ export class OrderComponent {
     if (storedData !== null) {
       this.listOrderProduct = JSON.parse(storedData);
     }
+
+    window.scrollTo(0, 0);
   }
 
   onCalculateTotalQuantity(price: any, priceSale: any, quantity: any) {

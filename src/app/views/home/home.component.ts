@@ -13,4 +13,8 @@ export class HomeComponent {
   listMenu: MenuItem[] = HOME_DATA.listMenu;
 
   listProduct: ProductItem[] = PRODUCT_DATA.listProduct;
+
+  constructor() {
+    window.scrollTo(0, 0);
+  }
 }
